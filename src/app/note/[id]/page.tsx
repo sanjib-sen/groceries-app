@@ -1,17 +1,23 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { Note } from "@/app/components/Note";
 import { useNote } from "@/app/cache";
-
-export default function NoteLayout({ params }: { params: { id: string } }) {
-  const router = useRouter();
+import { Navigate } from "react-router-dom";
+export default function NoteLayout<ReactNode>({
+  params,
+}: {
+  params: { id: string };
+}) {
   const id = params.id;
   const note = useNote(id);
 
   if (note == null) {
-    return router.push("/");
+    return <Navigate to="/" />;
   }
 
-  return <Note note={note} />;
+  return (
+    <>
+      <Note note={note} />
+    </>
+  );
 }

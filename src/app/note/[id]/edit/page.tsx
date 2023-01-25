@@ -4,13 +4,12 @@ import { NoteData, RawNote, Tag } from "@/app/types";
 import { NoteForm } from "@/app/components/NoteForm";
 import { useLocalStorage } from "@/app/middleware";
 import { useNote } from "@/app/cache";
-import { useRouter } from "next/navigation";
+import { Navigate } from "react-router-dom";
 
 export default function EditNote({ params }: { params: { id: string } }) {
   const note = useNote(params.id);
   const [notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", []);
   const [tags, setTags] = useLocalStorage<Tag[]>("TAGS", []);
-  const router = useRouter();
 
   function onAddTag(tag: Tag) {
     setTags((prev) => [...prev, tag]);
@@ -46,6 +45,6 @@ export default function EditNote({ params }: { params: { id: string } }) {
       </>
     );
   } else {
-    router.push("/");
+    return <Navigate to="/" />;
   }
 }
