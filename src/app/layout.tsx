@@ -1,6 +1,8 @@
-import "./globals.css";
+"use client";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
-
+import { Container, Stack, Button } from "react-bootstrap";
+import Header from "./components/Header";
 export default function RootLayout({
   children,
 }: {
@@ -8,13 +10,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
       <head />
       <UserProvider>
-        <body>{children}</body>
+        <body>
+          <Header />
+          <Container className="my-4 pt-4 pl-4 p-4 bg-light rounded select-none">
+            {children}
+          </Container>
+        </body>
       </UserProvider>
     </html>
   );
